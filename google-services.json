@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "503535122394",
+    "project_id": "perfil3-teresaruiz",
+    "storage_bucket": "perfil3-teresaruiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503535122394:android:8692f0803ce0e30b4872e3",
+        "android_client_info": {
+          "package_name": "com.perfil3.teresa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnLLYkV1xPcSLTVdoIPi58QQrJiirzCiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
