@@ -1,53 +1,34 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  Image,
-} from "react-native";
-import {
-  TextInput,
-  Button,
-  PaperProvider,
-  Card,
-} from "react-native-paper";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image } from "react-native";
+import { TextInput, Button, PaperProvider, Card } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { authentication } from '../config/firebase'; // Ajusta el path según tu estructura de proyecto
+import { authentication } from '../config/firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-// Constante para manejar el alto de la pantalla
 const windowHeight = Dimensions.get("window").height;
 
 const SignUp = () => {
-  // Constantes para el manejo de datos
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
-
-  // Constante de navegación entre pantallas
   const navigation = useNavigation();
 
-  // Método para manejar el registro de usuarios
-  const handleRegister = async () => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(authentication, correo, clave);
-      const user = userCredential.user;
-      console.log("User registered: ", user);
-      // Puedes redirigir al usuario a otra pantalla después del registro
-      navigation.navigate("Home"); // Ajusta "Home" a la pantalla a la que quieres navegar
-    } catch (error) {
-      if (error.code === 'auth/network-request-failed') {
-        alert("Error de red. Por favor, verifica tu conexión a Internet.");
-      } else {
-        alert(`Error: ${error.message}`);
-      }
+ const handleRegister = async () => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(authentication, correo, clave);
+    const user = userCredential.user;
+    console.log("User registered: ", user);
+    // Puedes redirigir al usuario a otra pantalla después del registro
+    navigation.navigate("Home"); // Ajusta "Home" a la pantalla a la que quieres navegar
+  } catch (error) {
+    if (error.code === 'auth/network-request-failed') {
+      alert("Error de red. Por favor, verifica tu conexión a Internet.");
+    } else {
+      alert(`Error: ${error.message}`);
     }
-  };
+  }
+};
 
-  // Limpiar campos al montar el componente
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setCorreo('');
@@ -56,42 +37,36 @@ const SignUp = () => {
 
     return unsubscribe;
   }, [navigation]);
+
   return (
     <PaperProvider>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
-          {/* Agregar la imagen del logo encima del contenedor del formulario */}
-          <Image source={require('../../assets/favicon.png')} style={styles.logo} />
-          <Text style={styles.title}>Alpha Store </Text>
-          <Card style={styles.profileCard}>
+          <Card style={styles.card}>
             <Card.Content>
-              <Text style={styles.title}>Registrarse </Text>
+              <Text style={styles.title}>Registrarse</Text>
               <View style={styles.inputContainer}>
-                <View style={styles.infoRow}>
-                  <Text style={styles.label}>Correo electrónico:</Text>
-                  <View style={styles.rowContent}>
-                    <AntDesign name="mail" size={24} />
-                    <TextInput
-                      style={styles.infoText}
-                      value={correo}
-                      onChangeText={setCorreo}
-                      keyboardType="email-address"
-                    />
-                  </View>
+                <View style={styles.inputRow}>
+                  <AntDesign name="mail" size={24} style={styles.icon} />
+                  <TextInput
+                    style={styles.input}
+                    value={correo}
+                    onChangeText={setCorreo}
+                    keyboardType="email-address"
+                    placeholder="Correo electrónico"
+                  />
                 </View>
               </View>
               <View style={styles.inputContainer}>
-                <View style={styles.infoRow}>
-                  <Text style={styles.label}>Clave del cliente:</Text>
-                  <View style={styles.rowContent}>
-                    <Entypo name="lock" size={24} />
-                    <TextInput
-                      style={styles.infoText}
-                      value={clave}
-                      onChangeText={setClave}
-                      secureTextEntry={true}
-                    />
-                  </View>
+                <View style={styles.inputRow}>
+                  <Entypo name="lock" size={24} style={styles.icon} />
+                  <TextInput
+                    style={styles.input}
+                    value={clave}
+                    onChangeText={setClave}
+                    secureTextEntry={true}
+                    placeholder="Clave del cliente"
+                  />
                 </View>
               </View>
               <Button
@@ -102,7 +77,7 @@ const SignUp = () => {
                 Registrarse
               </Button>
               <TouchableOpacity
-                onPress={() => navigation.navigate("LogIn")} // Ajusta el nombre de la pantalla de inicio de sesión
+                onPress={() => navigation.navigate("LogIn")}
               >
                 <Text style={styles.loginText}>
                   ¿Ya tienes cuenta? Inicia sesión aquí
@@ -121,6 +96,7 @@ export default SignUp;
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
+    backgroundColor: '#f5f5f5',
   },
   container: {
     flex: 1,
@@ -131,87 +107,55 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   logo: {
-    width: 150, // Ajusta el ancho según sea necesario
-    height: 150, // Ajusta la altura según sea necesario
-    resizeMode: 'contain', // Ajusta la forma en que la imagen se ajusta a su contenedor
-    marginBottom: 20, // Espacio opcional después de la imagen
-    borderRadius: 100,
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+    marginBottom: 20,
   },
-  profileCard: {
+  card: {
     width: "100%",
     marginTop: 10,
     borderRadius: 10,
-    padding: 10,
-    backgroundColor: "#B7DABE",
-    paddingTop: 20,
-    paddingBottom: 40,
+    padding: 20,
+    backgroundColor: "#fff",
+    elevation: 2,
   },
   inputContainer: {
     marginBottom: 20,
   },
-  title: {
-    fontSize: 18,
-    marginBottom: 5,
-  },
-  label: {
-    fontSize: 14,
-    color: "gray",
-    marginBottom: 5,
-  },
-  infoRow: {
-    padding: 12,
-    margin: 2,
-    borderRadius: 10,
-    backgroundColor: "white",
-    width: "100%",
-    elevation: 2,
-  },
-  rowContent: {
+  inputRow: {
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  infoText: {
-    marginLeft: 10,
+  icon: {
+    marginRight: 12,
+    color: '#888',
+  },
+  input: {
+    flex: 1,
     fontSize: 16,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     height: 40,
     borderWidth: 0,
-    flex: 1,
   },
-  pickerText: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    color: "black",
-    flex: 1,
-  },
-  fila: {
-    flexDirection: "row",
-    alignItems: "center",
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   button: {
     width: "100%",
-    paddingVertical: 10,
-    marginTop: 10,
-    backgroundColor: "#38A34C",
+    paddingVertical: 12,
+    marginTop: 20,
+    backgroundColor: '#000',
   },
   loginText: {
     marginTop: 20,
-    color: "black",
-  },
-  avatarContainer: {
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  avatarImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  backgroundImage: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
+    color: '#888',
+    textAlign: 'center',
   },
 });
