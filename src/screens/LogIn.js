@@ -86,7 +86,7 @@ const LoginScreen = () => {
                 mode="contained"
                 onPress={handleLogin}
               >
-                Iniciar Sesión
+                Iniciar sesión
               </Button>
               <TouchableOpacity
                 onPress={() => navigation.navigate("SignUp")}

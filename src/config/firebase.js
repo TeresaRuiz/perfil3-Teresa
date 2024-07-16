@@ -37,7 +37,7 @@ const storage = getStorage(app);
 if (storage) {
   console.log('Storage initialized correctly');
 } else {
-  console.log('Storage initialization failed');
+  console.log('Storage ization failed');
 }
  
 const auth = getAuth(app); // Inicializar Auth
