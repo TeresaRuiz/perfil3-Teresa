@@ -53,7 +53,7 @@ const SignUp = () => {
                     value={correo}
                     onChangeText={setCorreo}
                     keyboardType="email-address"
-                    placeholder="Correo electrónico"
+                    placeholder="Dirección de correo electronico"
                   />
                 </View>
               </View>
@@ -65,7 +65,7 @@ const SignUp = () => {
                     value={clave}
                     onChangeText={setClave}
                     secureTextEntry={true}
-                    placeholder="Clave del cliente"
+                    placeholder="Contraseña del usuario"
                   />
                 </View>
               </View>
