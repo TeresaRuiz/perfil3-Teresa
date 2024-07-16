@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "980815880892",
+    "project_id": "perfil3-teresa-d97e9",
+    "storage_bucket": "perfil3-teresa-d97e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980815880892:android:1e2f4b950a9c26414726b9",
+        "android_client_info": {
+          "package_name": "com.perfil3.teresa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACAIMTW31l6NT7BgVlBMjRMoKNfYmzMGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
