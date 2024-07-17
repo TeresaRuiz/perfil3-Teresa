@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image, Alert } from 'react-native';
 import { database, storage } from '../config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons'; // Importa el icono de AntDesign
 
 // Componente Add para agregar un nuevo producto
 const Add = ({ navigation }) => {
@@ -16,8 +15,6 @@ const Add = ({ navigation }) => {
         creado: new Date(),
         imagen: ''
     });
-
-    const [loading, setLoading] = useState(false); // Estado de carga
 
     // Función para navegar a la pantalla de inicio
     const goToHome = () => {
@@ -48,20 +45,25 @@ const Add = ({ navigation }) => {
 
     // Función para agregar el producto a Firestore
     const agregarProducto = async () => {
-        setLoading(true); // Iniciar la carga
         try {
             let imageUrl = null;
 
             if (producto.imagen) {
                 console.log('Subiendo imagen a Firebase Storage...');
                 const imageRef = ref(storage, `images/${Date.now()}-${producto.nombre}`);
+
                 const response = await fetch(producto.imagen);
                 const blob = await response.blob();
+
+                console.log('Antes del uploadBytes');
                 const snapshot = await uploadBytes(imageRef, blob);
+                console.log('Snapshot después del uploadBytes:', snapshot);
+
                 imageUrl = await getDownloadURL(snapshot.ref);
                 console.log("URL de la imagen:", imageUrl);
             }
 
+            console.log('Datos del producto:', { ...producto, imagen: imageUrl });
             await addDoc(collection(database, 'productos'), { ...producto, imagen: imageUrl });
             console.log('Se guardó la colección');
 
@@ -73,8 +75,6 @@ const Add = ({ navigation }) => {
         } catch (error) {
             console.error('Error al agregar el producto', error);
             Alert.alert('Error', 'Ocurrió un error al agregar el producto. Por favor, intenta nuevamente.');
-        } finally {
-            setLoading(false); // Finalizar la carga
         }
     };
 
@@ -82,9 +82,7 @@ const Add = ({ navigation }) => {
         <View style={styles.container}>
             <Text style={styles.title}>Agregar producto</Text>
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>
-                    <AntDesign name="shoppingcart" size={24} color="black" /> Nombre:
-                </Text>
+                <Text style={styles.label}>Nombre:</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={text => setProducto({ ...producto, nombre: text })}
@@ -92,13 +90,11 @@ const Add = ({ navigation }) => {
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>
-                    <FontAwesome5 name="comments-dollar" size={24} color="black" /> Precio:
-                </Text>
+                <Text style={styles.label}>Precio:</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={text => setProducto({ ...producto, precio: parseFloat(text) })}
-                    value={producto.precio.toString()} // Convertir a string para evitar error
+                    value={producto.precio}
                     keyboardType='numeric'
                 />
             </View>
@@ -108,13 +104,9 @@ const Add = ({ navigation }) => {
             </TouchableOpacity>
             {producto.imagen ? <Image source={{ uri: producto.imagen }} style={styles.imagePreview} /> : null}
 
-            {loading ? (
-                <ActivityIndicator size="large" color="#0288d1" />
-            ) : (
-                <TouchableOpacity style={styles.button} onPress={agregarProducto}>
-                    <Text style={styles.buttonText}>Agregar producto</Text>
-                </TouchableOpacity>
-            )}
+            <TouchableOpacity style={styles.button} onPress={agregarProducto}>
+                <Text style={styles.buttonText}>Agregar producto</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={goToHome}>
                 <Text style={styles.buttonText}>Volver a home</Text>
@@ -129,7 +121,7 @@ export default Add;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#B7DABE', // Color verde de login
+        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
@@ -144,7 +136,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 10, // Ajuste para hacer los bordes más redondeados
+        borderRadius: 4,
         paddingLeft: 8,
         backgroundColor: '#fff',
         shadowColor: '#000',
@@ -152,14 +144,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 2,
-        width: '100%',
-    },
-    inputContainer: {
-        width: '100%',
-        padding: 16,
-        backgroundColor: '#f8f9fa', // Color de fondo claro
-        marginBottom: 16,
-        borderRadius: 10, // Ajuste para hacer los bordes más redondeados
+        width: '100%'
     },
     imagePicker: {
         backgroundColor: '#0288d1',
@@ -179,7 +164,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: '#38A34C', // Color de botón verde
+        backgroundColor: '#0288d1',
         padding: 10,
         borderRadius: 5,
         marginTop: 20,
@@ -195,7 +180,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 8,
         color: '#333',
-        flexDirection: 'row',
-        alignItems: 'center',
+    },
+    inputContainer: {
+        width: '100%',
+        padding: 16,
+        backgroundColor: '#f8f9fa',
+        marginBottom: 16,
     },
 });

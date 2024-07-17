@@ -1,20 +1,7 @@
-
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { database } from '../config/firebase';
-/*
-Esta línea está importando database desde un archivo de configuración de Firebase ubicado en ../config/firebase.
-*/
-
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-
-/*
-Esta línea importa tres funciones específicas de la biblioteca firebase/firestore:
-
-    deleteDoc: Esta función se utiliza para eliminar un documento específico de una colección en Firestore.
-    doc: Esta función se utiliza para crear una referencia a un documento específico dentro de una colección en Firestore.
-    updateDoc: Esta función se utiliza para actualizar campos específicos de un documento existente en Firestore
-*/
 
 // Función para eliminar un documento de Firestore
 const handleDelete = async (id) => {
