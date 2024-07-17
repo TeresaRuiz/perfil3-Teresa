@@ -27,8 +27,7 @@ const SignUp = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, correo, clave);
       const user = userCredential.user;
       console.log("User registered: ", user);
-      // Puedes redirigir al usuario a otra pantalla después del registro
-      navigation.navigate("Home"); // Ajusta "Home" a la pantalla a la que quieres navegar
+      navigation.navigate("LogIn"); 
     } catch (error) {
       if (error.code === 'auth/network-request-failed') {
         alert("Error de red. Por favor, verifica tu conexión a Internet.");
