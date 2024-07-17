@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image
 import { TextInput, Button, PaperProvider, Card } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { authentication } from '../config/firebase';
+import { auth } from '../config/firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const windowHeight = Dimensions.get("window").height;
@@ -15,7 +15,7 @@ const SignUp = () => {
 
  const handleRegister = async () => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(authentication, correo, clave);
+    const userCredential = await createUserWithEmailAndPassword(auth, correo, clave);
     const user = userCredential.user;
     console.log("User registered: ", user);
     // Puedes redirigir al usuario a otra pantalla después del registro
