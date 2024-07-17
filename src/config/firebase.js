@@ -1,8 +1,9 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from 'firebase/storage';
-import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID } from '@env';
 import { getAuth, initializeAuth, getRedirectResult } from "firebase/auth";
+import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID } from '@env';
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -49,4 +50,4 @@ if (auth) {
 
 
 
-export { database,storage, auth };
+export { database, storage, auth };
