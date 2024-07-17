@@ -54,6 +54,7 @@ const Home = ({ navigation }) => {
     // Renderiza la interfaz del componente Home
     return (
         <View style={styles.container}>
+             <Text style={styles.title}></Text>
             <Text style={styles.title}>Productos disponibles</Text>
 
             {/* Muestra la lista de productos si hay elementos, de lo contrario muestra un mensaje */}

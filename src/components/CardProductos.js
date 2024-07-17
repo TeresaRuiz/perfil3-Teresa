@@ -51,7 +51,7 @@ const CardProductos = ({ id, nombre, precio, vendido, imagen }) => {
                     style={[styles.updateButton, vendido ? styles.regresarButton : styles.venderButton]}
                     onPress={() => handleUpdate(id, vendido)}>
                     <Text style={styles.updateButtonText}>
-                        {vendido ? "Devolver Producto" : "Vender"}
+                        {vendido ? "Devolver producto" : "Vender"}
                     </Text>
                 </TouchableOpacity>
             </View>

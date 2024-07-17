@@ -4,6 +4,7 @@ import { database, storage } from '../config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
+
 // Componente Add para agregar un nuevo producto
 const Add = ({ navigation }) => {
     // Estado inicial del producto
@@ -83,7 +84,7 @@ const Add = ({ navigation }) => {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Nombre:</Text>
                 <TextInput
-                    style={[styles.input, { color: '#000' }]}
+                    style={[styles.input, { borderRadius: 10 }]}
                     onChangeText={text => setProducto({ ...producto, nombre: text })}
                     value={producto.nombre}
                     placeholderTextColor="#999"
@@ -92,7 +93,7 @@ const Add = ({ navigation }) => {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Precio:</Text>
                 <TextInput
-                    style={[styles.input, { color: '#000' }]}
+                    style={[styles.input, { borderRadius: 10 }]}
                     onChangeText={text => setProducto({ ...producto, precio: parseFloat(text) })}
                     value={producto.precio}
                     keyboardType='numeric'
@@ -100,16 +101,16 @@ const Add = ({ navigation }) => {
                 />
             </View>
             <Text style={styles.label}>Imagen:</Text>
-            <TouchableOpacity onPress={openGalery} style={[styles.imagePicker, { backgroundColor: '#000' }]}>
+            <TouchableOpacity onPress={openGalery} style={[styles.imagePicker, { borderRadius: 10 }]}>
                 <Text style={[styles.imagePickerText, { color: '#fff' }]}>Seleccionar imagen</Text>
             </TouchableOpacity>
             {producto.imagen ? <Image source={{ uri: producto.imagen }} style={styles.imagePreview} /> : null}
 
-            <TouchableOpacity style={[styles.button, { backgroundColor: '#000' }]} onPress={agregarProducto}>
+            <TouchableOpacity style={[styles.button, { borderRadius: 10 }]} onPress={agregarProducto}>
                 <Text style={[styles.buttonText, { color: '#fff' }]}>Agregar producto</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor: '#000' }]} onPress={goToHome}>
+            <TouchableOpacity style={[styles.button, { borderRadius: 10 }]} onPress={goToHome}>
                 <Text style={[styles.buttonText, { color: '#fff' }]}>Volver a home</Text>
             </TouchableOpacity>
         </View>
@@ -134,25 +135,29 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#000',
     },
+    inputContainer: {
+        width: '100%',
+        marginBottom: 16,
+    },
+    label: {
+        fontSize: 16,
+        marginBottom: 8,
+        color: '#000',
+    },
     input: {
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 4,
-        paddingLeft: 8,
+        height: 50,
+        borderColor: '#000',
+        borderWidth: 2,
+        paddingLeft: 12,
         backgroundColor: '#fff',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        elevation: 2,
-        width: '100%'
+        color: '#000',
+        width: '100%',
     },
     imagePicker: {
-        padding: 10,
-        borderRadius: 5,
+        padding: 12,
         alignItems: 'center',
         marginBottom: 20,
+        backgroundColor: '#000',
         width: '100%',
     },
     imagePickerText: {
@@ -164,25 +169,13 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        padding: 10,
-        borderRadius: 5,
-        marginTop: 20,
+        padding: 12,
+        backgroundColor: '#000',
         width: '100%',
         alignItems: 'center',
+        marginTop: 10,
     },
     buttonText: {
         fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    label: {
-        fontSize: 16,
-        marginBottom: 8,
-        color: '#000',
-    },
-    inputContainer: {
-        width: '100%',
-        padding: 16,
-        backgroundColor: '#f8f9fa',
-        marginBottom: 16,
     },
 })

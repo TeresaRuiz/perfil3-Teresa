@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import {View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image,} from "react-native";
 import {
   TextInput,
   Button,
