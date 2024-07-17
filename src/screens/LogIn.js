@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  Image,
-} from "react-native";
-import {
-  TextInput,
-  Button,
-  PaperProvider,
-  Card,
-} from "react-native-paper";
+import {View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image,} from "react-native";
+import { TextInput, Button, PaperProvider, Card,} from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { auth } from '../config/firebase'; // Ajusta el path según tu estructura de proyecto
@@ -66,12 +53,14 @@ const LoginScreen = () => {
                 <View style={styles.infoRow}>
                   <Text style={styles.label}>Correo electrónico:</Text>
                   <View style={styles.rowContent}>
-                    <AntDesign name="mail" size={24} />
+                    <AntDesign name="mail" size={24} color="#000" />
                     <TextInput
-                      style={styles.infoText}
+                      style={[styles.infoText, { color: '#000' }]}
                       value={correo}
                       onChangeText={setCorreo}
                       keyboardType="email-address"
+                      underlineColor="transparent"
+                      theme={{ colors: { text: '#000', primary: '#000' }}}
                     />
                   </View>
                 </View>
@@ -80,28 +69,31 @@ const LoginScreen = () => {
                 <View style={styles.infoRow}>
                   <Text style={styles.label}>Clave del cliente:</Text>
                   <View style={styles.rowContent}>
-                    <Entypo name="lock" size={24} />
+                    <Entypo name="lock" size={24} color="#000" />
                     <TextInput
-                      style={styles.infoText}
+                      style={[styles.infoText, { color: '#000' }]}
                       value={clave}
                       onChangeText={setClave}
                       secureTextEntry={true}
+                      underlineColor="transparent"
+                      theme={{ colors: { text: '#000', primary: '#000' }}}
                     />
                   </View>
                 </View>
               </View>
               {error ? <Text style={styles.errorText}>{error}</Text> : null}
               <Button
-                style={styles.button}
+                style={[styles.button, { backgroundColor: '#000' }]}
                 mode="contained"
                 onPress={handleLogin}
+                labelStyle={{ color: '#fff' }}
               >
                 Iniciar Sesión
               </Button>
               <TouchableOpacity
                 onPress={() => navigation.navigate("SignUp")}
               >
-                <Text style={styles.loginText}>
+                <Text style={[styles.loginText, { color: '#000' }]}>
                   ¿No tienes cuenta? Registrate aquí
                 </Text>
               </TouchableOpacity>
@@ -126,42 +118,39 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: windowHeight * 0.15,
     paddingTop: 50,
-  },
-  logo: {
-    width: 150, // Ajusta el ancho según sea necesario
-    height: 150, // Ajusta la altura según sea necesario
-    resizeMode: 'contain', // Ajusta la forma en que la imagen se ajusta a su contenedor
-    marginBottom: 20, // Espacio opcional después de la imagen
-    borderRadius: 100,
-  },
-  title: {
-    fontSize: 18,
-    marginBottom: 5,
+    backgroundColor: '#fff',
   },
   profileCard: {
     width: "100%",
     marginTop: 10,
     borderRadius: 10,
-    padding: 10,
-    backgroundColor: "#B7DABE",
-    paddingTop: 20,
-    paddingBottom: 40,
+    padding: 20,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: '#000',
   },
   inputContainer: {
     marginBottom: 20,
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#000',
+    textAlign: 'center',
+  },
   label: {
     fontSize: 14,
-    color: "gray",
+    color: "#000",
     marginBottom: 5,
   },
   infoRow: {
     padding: 12,
-    margin: 2,
     borderRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     width: "100%",
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#000',
   },
   rowContent: {
     flexDirection: "row",
@@ -175,41 +164,15 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     flex: 1,
   },
-  pickerText: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    color: "black",
-    flex: 1,
-  },
-  fila: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
   button: {
     width: "100%",
     paddingVertical: 10,
-    marginTop: 10,
-    backgroundColor: "#38A34C",
+    marginTop: 20,
+    borderRadius: 25,
   },
   loginText: {
     marginTop: 20,
-    color: "black",
-  },
-  avatarContainer: {
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  avatarImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  backgroundImage: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
+    textAlign: 'center',
   },
   errorText: {
     color: 'red',

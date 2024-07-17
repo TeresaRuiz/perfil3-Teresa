@@ -4,7 +4,6 @@ import { database, storage } from '../config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
-
 // Componente Add para agregar un nuevo producto
 const Add = ({ navigation }) => {
     // Estado inicial del producto
@@ -84,32 +83,34 @@ const Add = ({ navigation }) => {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Nombre:</Text>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: '#000' }]}
                     onChangeText={text => setProducto({ ...producto, nombre: text })}
                     value={producto.nombre}
+                    placeholderTextColor="#999"
                 />
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Precio:</Text>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: '#000' }]}
                     onChangeText={text => setProducto({ ...producto, precio: parseFloat(text) })}
                     value={producto.precio}
                     keyboardType='numeric'
+                    placeholderTextColor="#999"
                 />
             </View>
-            <Text>Imagen:</Text>
-            <TouchableOpacity onPress={openGalery} style={styles.imagePicker}>
-                <Text style={styles.imagePickerText}>Seleccionar Imagen</Text>
+            <Text style={styles.label}>Imagen:</Text>
+            <TouchableOpacity onPress={openGalery} style={[styles.imagePicker, { backgroundColor: '#000' }]}>
+                <Text style={[styles.imagePickerText, { color: '#fff' }]}>Seleccionar imagen</Text>
             </TouchableOpacity>
             {producto.imagen ? <Image source={{ uri: producto.imagen }} style={styles.imagePreview} /> : null}
 
-            <TouchableOpacity style={styles.button} onPress={agregarProducto}>
-                <Text style={styles.buttonText}>Agregar producto</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: '#000' }]} onPress={agregarProducto}>
+                <Text style={[styles.buttonText, { color: '#fff' }]}>Agregar producto</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={goToHome}>
-                <Text style={styles.buttonText}>Volver a home</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: '#000' }]} onPress={goToHome}>
+                <Text style={[styles.buttonText, { color: '#fff' }]}>Volver a home</Text>
             </TouchableOpacity>
         </View>
     );
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
+        color: '#000',
     },
     input: {
         height: 40,
@@ -147,7 +149,6 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     imagePicker: {
-        backgroundColor: '#0288d1',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
@@ -155,7 +156,6 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     imagePickerText: {
-        color: 'white',
         fontWeight: 'bold',
     },
     imagePreview: {
@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: '#0288d1',
         padding: 10,
         borderRadius: 5,
         marginTop: 20,
@@ -172,14 +171,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
     },
     label: {
         fontSize: 16,
         marginBottom: 8,
-        color: '#333',
+        color: '#000',
     },
     inputContainer: {
         width: '100%',
@@ -187,4 +185,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f9fa',
         marginBottom: 16,
     },
-});
+})

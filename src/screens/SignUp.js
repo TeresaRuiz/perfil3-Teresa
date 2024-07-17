@@ -11,7 +11,6 @@ import {
   TextInput,
   Button,
   PaperProvider,
-  Card,
 } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
@@ -60,58 +59,56 @@ const SignUp = () => {
     <PaperProvider>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
-          <Card style={styles.profileCard}>
-            <Card.Content>
-              <Text style={styles.title}>Registrarse</Text>
-              <View style={styles.inputContainer}>
-                <View style={styles.infoRow}>
-                  <Text style={styles.label}>Correo electrónico:</Text>
-                  <View style={styles.rowContent}>
-                    <AntDesign name="mail" size={24} color="#333" />
-                    <TextInput
-                      style={styles.infoText}
-                      value={correo}
-                      onChangeText={setCorreo}
-                      keyboardType="email-address"
-                      underlineColor="transparent"
-                      theme={{ colors: { text: '#333', primary: '#333' }}}
-                    />
-                  </View>
+          <View style={styles.formContainer}>
+            <Text style={styles.title}>Registrarse</Text>
+            <View style={styles.inputContainer}>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Correo electrónico:</Text>
+                <View style={styles.rowContent}>
+                  <AntDesign name="mail" size={24} color="#000" />
+                  <TextInput
+                    style={styles.infoText}
+                    value={correo}
+                    onChangeText={setCorreo}
+                    keyboardType="email-address"
+                    underlineColor="transparent"
+                    theme={{ colors: { text: '#000', primary: '#000' }}}
+                  />
                 </View>
               </View>
-              <View style={styles.inputContainer}>
-                <View style={styles.infoRow}>
-                  <Text style={styles.label}>Clave del cliente:</Text>
-                  <View style={styles.rowContent}>
-                    <Entypo name="lock" size={24} color="#333" />
-                    <TextInput
-                      style={styles.infoText}
-                      value={clave}
-                      onChangeText={setClave}
-                      secureTextEntry={true}
-                      underlineColor="transparent"
-                      theme={{ colors: { text: '#333', primary: '#333' }}}
-                    />
-                  </View>
+            </View>
+            <View style={styles.inputContainer}>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Clave del cliente:</Text>
+                <View style={styles.rowContent}>
+                  <Entypo name="lock" size={24} color="#000" />
+                  <TextInput
+                    style={styles.infoText}
+                    value={clave}
+                    onChangeText={setClave}
+                    secureTextEntry={true}
+                    underlineColor="transparent"
+                    theme={{ colors: { text: '#000', primary: '#000' }}}
+                  />
                 </View>
               </View>
-              <Button
-                style={styles.button}
-                mode="contained"
-                onPress={handleRegister}
-                labelStyle={{ color: '#fff' }}
-              >
-                Registrarse
-              </Button>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("LogIn")} // Ajusta el nombre de la pantalla de inicio de sesión
-              >
-                <Text style={styles.loginText}>
-                  ¿Ya tienes cuenta? Inicia sesión aquí
-                </Text>
-              </TouchableOpacity>
-            </Card.Content>
-          </Card>
+            </View>
+            <Button
+              style={styles.button}
+              mode="contained"
+              onPress={handleRegister}
+              labelStyle={{ color: '#fff' }}
+            >
+              Registrarse
+            </Button>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("LogIn")} // Ajusta el nombre de la pantalla de inicio de sesión
+            >
+              <Text style={styles.loginText}>
+                ¿Ya tienes cuenta? Inicia sesión aquí
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </PaperProvider>
@@ -122,7 +119,7 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    flexGrow: 1,
+    flexGrow: 60,
   },
   container: {
     flex: 1,
@@ -131,15 +128,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: windowHeight * 0.15,
     paddingTop: 50,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
   },
-  profileCard: {
+  formContainer: {
     width: "100%",
-    marginTop: 10,
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-    backgroundColor: "#fff",
-    elevation: 3,
   },
   inputContainer: {
     marginBottom: 20,
@@ -148,12 +143,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#333',
+    color: '#000',
     textAlign: 'center',
   },
   label: {
     fontSize: 14,
-    color: "#333",
+    color: "#000",
     marginBottom: 5,
   },
   infoRow: {
@@ -161,7 +156,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
     width: "100%",
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#000',
   },
   rowContent: {
     flexDirection: "row",
@@ -174,18 +170,18 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 0,
     flex: 1,
-    color: "#333",
+    color: "#000",
   },
   button: {
     width: "100%",
     paddingVertical: 10,
     marginTop: 20,
-    backgroundColor: "#333",
+    backgroundColor: "#000",
     borderRadius: 25,
   },
   loginText: {
     marginTop: 20,
-    color: "#333",
+    color: "#000",
     textAlign: 'center',
   },
-});
+})
