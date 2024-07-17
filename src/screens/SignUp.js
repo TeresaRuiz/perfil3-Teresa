@@ -1,22 +1,42 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { TextInput, Button, PaperProvider, Card } from "react-native-paper";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+} from "react-native";
+import {
+  TextInput,
+  Button,
+  PaperProvider,
+  Card,
+} from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { auth } from '../config/firebase';
+import { auth } from '../config/firebase'; // Ajusta el path según tu estructura de proyecto
 import { createUserWithEmailAndPassword } from "firebase/auth";
- 
+
+// Constante para manejar el alto de la pantalla
+const windowHeight = Dimensions.get("window").height;
+
 const SignUp = () => {
+  // Constantes para el manejo de datos
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
+
+  // Constante de navegación entre pantallas
   const navigation = useNavigation();
- 
+
+  // Método para manejar el registro de usuarios
   const handleRegister = async () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, correo, clave);
       const user = userCredential.user;
       console.log("User registered: ", user);
-      navigation.navigate("Home");
+      // Puedes redirigir al usuario a otra pantalla después del registro
+      navigation.navigate("Home"); // Ajusta "Home" a la pantalla a la que quieres navegar
     } catch (error) {
       if (error.code === 'auth/network-request-failed') {
         alert("Error de red. Por favor, verifica tu conexión a Internet.");
@@ -25,47 +45,66 @@ const SignUp = () => {
       }
     }
   };
- 
+
+  // Limpiar campos al montar el componente
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setCorreo('');
+      setClave('');
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+  
   return (
     <PaperProvider>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
-          <Card style={styles.card}>
+          <Card style={styles.profileCard}>
             <Card.Content>
               <Text style={styles.title}>Registrarse</Text>
               <View style={styles.inputContainer}>
-                <View style={styles.inputRow}>
-                  <AntDesign name="mail" size={24} style={styles.icon} />
-                  <TextInput
-                    style={styles.input}
-                    value={correo}
-                    onChangeText={setCorreo}
-                    keyboardType="email-address"
-                    placeholder="Dirección de correo electronico"
-                  />
+                <View style={styles.infoRow}>
+                  <Text style={styles.label}>Correo electrónico:</Text>
+                  <View style={styles.rowContent}>
+                    <AntDesign name="mail" size={24} color="#333" />
+                    <TextInput
+                      style={styles.infoText}
+                      value={correo}
+                      onChangeText={setCorreo}
+                      keyboardType="email-address"
+                      underlineColor="transparent"
+                      theme={{ colors: { text: '#333', primary: '#333' }}}
+                    />
+                  </View>
                 </View>
               </View>
               <View style={styles.inputContainer}>
-                <View style={styles.inputRow}>
-                  <Entypo name="lock" size={24} style={styles.icon} />
-                  <TextInput
-                    style={styles.input}
-                    value={clave}
-                    onChangeText={setClave}
-                    secureTextEntry={true}
-                    placeholder="Contraseña del usuario"
-                  />
+                <View style={styles.infoRow}>
+                  <Text style={styles.label}>Clave del cliente:</Text>
+                  <View style={styles.rowContent}>
+                    <Entypo name="lock" size={24} color="#333" />
+                    <TextInput
+                      style={styles.infoText}
+                      value={clave}
+                      onChangeText={setClave}
+                      secureTextEntry={true}
+                      underlineColor="transparent"
+                      theme={{ colors: { text: '#333', primary: '#333' }}}
+                    />
+                  </View>
                 </View>
               </View>
               <Button
                 style={styles.button}
                 mode="contained"
                 onPress={handleRegister}
+                labelStyle={{ color: '#fff' }}
               >
                 Registrarse
               </Button>
               <TouchableOpacity
-                onPress={() => navigation.navigate("LogIn")}
+                onPress={() => navigation.navigate("LogIn")} // Ajusta el nombre de la pantalla de inicio de sesión
               >
                 <Text style={styles.loginText}>
                   ¿Ya tienes cuenta? Inicia sesión aquí
@@ -78,13 +117,12 @@ const SignUp = () => {
     </PaperProvider>
   );
 };
- 
+
 export default SignUp;
- 
+
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: '#f5f5f5',
   },
   container: {
     flex: 1,
@@ -93,51 +131,61 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: windowHeight * 0.15,
     paddingTop: 50,
+    backgroundColor: '#f5f5f5',
   },
-  card: {
+  profileCard: {
     width: "100%",
     marginTop: 10,
     borderRadius: 10,
     padding: 20,
     backgroundColor: "#fff",
-    elevation: 2,
+    elevation: 3,
   },
   inputContainer: {
     marginBottom: 20,
   },
-  inputRow: {
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+    textAlign: 'center',
+  },
+  label: {
+    fontSize: 14,
+    color: "#333",
+    marginBottom: 5,
+  },
+  infoRow: {
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    width: "100%",
+    elevation: 2,
+  },
+  rowContent: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
   },
-  icon: {
-    marginRight: 12,
-    color: '#888',
-  },
-  input: {
-    flex: 1,
+  infoText: {
+    marginLeft: 10,
     fontSize: 16,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     height: 40,
     borderWidth: 0,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    flex: 1,
+    color: "#333",
   },
   button: {
     width: "100%",
-    paddingVertical: 12,
+    paddingVertical: 10,
     marginTop: 20,
-    backgroundColor: '#000',
+    backgroundColor: "#333",
+    borderRadius: 25,
   },
   loginText: {
     marginTop: 20,
-    color: '#888',
+    color: "#333",
     textAlign: 'center',
   },
 });

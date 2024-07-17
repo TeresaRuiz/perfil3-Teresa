@@ -35,8 +35,9 @@ const Home = ({ navigation }) => {
         navigation.navigate('Add');
     }
 
+    // Función para navegar a la pantalla 'Login'
     const goLogin = () => { 
-        navigation.navigate('Login');
+        navigation.navigate('LogIn');
     }
 
     // Función que renderiza cada item de la lista
@@ -53,7 +54,7 @@ const Home = ({ navigation }) => {
     // Renderiza la interfaz del componente Home
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Productos Disponibles</Text>
+            <Text style={styles.title}>Productos disponibles</Text>
 
             {/* Muestra la lista de productos si hay elementos, de lo contrario muestra un mensaje */}
             {
@@ -72,17 +73,17 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.Button}
                 onPress={goToAdd}>
-                <Text style={styles.ButtonText}>Agregar Producto</Text>
+                <Text style={styles.ButtonText}>Agregar producto</Text>
             </TouchableOpacity>
+            {/* Botón para cerrar sesión */}
             <TouchableOpacity
-                style={styles.Button}
+                style={[styles.Button, styles.LogoutButton]}
                 onPress={goLogin}>
-                <Text style={styles.ButtonText}>Cerrar sesion</Text>
+                <Text style={[styles.ButtonText, styles.LogoutButtonText]}>Cerrar sesión</Text>
             </TouchableOpacity>
         </View>
     );
 };
-
 
 // Exporta el componente Home como predeterminado
 export default Home;
@@ -91,35 +92,50 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FEFEFE',
+        backgroundColor: '#f5f5f5',
         justifyContent: 'center',
         padding: 20,
     },
     title: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
+        color: '#333',
     },
     Subtitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 18,
+        fontWeight: '400',
         textAlign: 'center',
         marginBottom: 10,
-        color:'#ff9800'
+        color: '#888',
     },
     Button: {
-        backgroundColor: '#0288d1',
+        backgroundColor: '#333',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 25,
         marginTop: 20,
         marginHorizontal: 50,
-        paddingVertical: 20,
+        paddingVertical: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 3,
     },
     ButtonText: {
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: '600',
         textAlign: 'center',
+        fontSize: 16,
+    },
+    LogoutButton: {
+        backgroundColor: '#f5f5f5',
+        borderWidth: 1,
+        borderColor: '#333',
+    },
+    LogoutButtonText: {
+        color: '#333',
     },
     list: {
         flexGrow: 1,
