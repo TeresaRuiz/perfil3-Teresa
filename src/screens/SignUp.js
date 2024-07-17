@@ -1,42 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { TextInput, Button, PaperProvider, Card } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { auth } from '../config/firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
-const windowHeight = Dimensions.get("window").height;
-
+ 
 const SignUp = () => {
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
   const navigation = useNavigation();
-
- const handleRegister = async () => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, correo, clave);
-    const user = userCredential.user;
-    console.log("User registered: ", user);
-    navigation.navigate("Home"); 
-  } catch (error) {
-    if (error.code === 'auth/network-request-failed') {
-      alert("Error de red. Por favor, verifica tu conexión a Internet.");
-    } else {
-      alert(`Error: ${error.message}`);
+ 
+  const handleRegister = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, correo, clave);
+      const user = userCredential.user;
+      console.log("User registered: ", user);
+      navigation.navigate("Home");
+    } catch (error) {
+      if (error.code === 'auth/network-request-failed') {
+        alert("Error de red. Por favor, verifica tu conexión a Internet.");
+      } else {
+        alert(`Error: ${error.message}`);
+      }
     }
-  }
-};
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setCorreo('');
-      setClave('');
-    });
-
-    return unsubscribe;
-  }, [navigation]);
-
+  };
+ 
   return (
     <PaperProvider>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -89,9 +78,9 @@ const SignUp = () => {
     </PaperProvider>
   );
 };
-
+ 
 export default SignUp;
-
+ 
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
@@ -104,12 +93,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: windowHeight * 0.15,
     paddingTop: 50,
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    resizeMode: 'contain',
-    marginBottom: 20,
   },
   card: {
     width: "100%",

@@ -1,48 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { TextInput, Button, PaperProvider, Card } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { authentication } from '../config/firebase';
+import { auth } from '../config/firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
-
-const windowHeight = Dimensions.get("window").height;
-
-const LoginScreen = () => {
+ 
+const LogIn = () => {
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
-  const [error, setError] = useState("");
   const navigation = useNavigation();
-
+ 
   const handleLogin = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(authentication, correo, clave);
+      const userCredential = await signInWithEmailAndPassword(auth, correo, clave);
       const user = userCredential.user;
       console.log("User logged in: ", user);
-      // Navegar a la pantalla principal o la que desees después del inicio de sesión
-      navigation.navigate("Home"); // Ajusta "Home" a la pantalla a la que quieres navegar
+      navigation.navigate("Home");
     } catch (error) {
-      console.error("Error logging in: ", error);
-      setError("Error al iniciar sesión. Por favor, verifica tus credenciales.");
+      if (error.code === 'auth/network-request-failed') {
+        alert("Error de red. Por favor, verifica tu conexión a Internet.");
+      } else {
+        alert(`Error: ${error.message}`);
+      }
     }
   };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setCorreo('');
-      setClave('');
-    });
-
-    return unsubscribe;
-  }, [navigation]);
-
+ 
   return (
     <PaperProvider>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
           <Card style={styles.card}>
             <Card.Content>
-              <Text style={styles.title}>Inicio de sesión</Text>
+              <Text style={styles.title}>Iniciar Sesión</Text>
               <View style={styles.inputContainer}>
                 <View style={styles.inputRow}>
                   <AntDesign name="mail" size={24} style={styles.icon} />
@@ -67,19 +57,18 @@ const LoginScreen = () => {
                   />
                 </View>
               </View>
-              {error ? <Text style={styles.errorText}>{error}</Text> : null}
               <Button
                 style={styles.button}
                 mode="contained"
                 onPress={handleLogin}
               >
-                Iniciar sesión
+                Iniciar Sesión
               </Button>
               <TouchableOpacity
                 onPress={() => navigation.navigate("SignUp")}
               >
-                <Text style={styles.registerText}>
-                  ¿No tienes cuenta? Registrate aquí
+                <Text style={styles.loginText}>
+                  ¿No tienes cuenta? Regístrate aquí
                 </Text>
               </TouchableOpacity>
             </Card.Content>
@@ -89,9 +78,9 @@ const LoginScreen = () => {
     </PaperProvider>
   );
 };
-
-export default LoginScreen;
-
+ 
+export default LogIn;
+ 
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
@@ -104,12 +93,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: windowHeight * 0.15,
     paddingTop: 50,
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    resizeMode: 'contain',
-    marginBottom: 20,
   },
   card: {
     width: "100%",
@@ -131,7 +114,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   icon: {
-    marginRight: 12,
+        marginRight: 12,
     color: '#888',
   },
   input: {
@@ -152,14 +135,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: '#000',
   },
-  registerText: {
+  loginText: {
     marginTop: 20,
     color: '#888',
-    textAlign: 'center',
-  },
-  errorText: {
-    color: 'red',
-    marginTop: 10,
     textAlign: 'center',
   },
 });
