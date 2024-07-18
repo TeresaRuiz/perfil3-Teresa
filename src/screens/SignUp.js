@@ -71,7 +71,7 @@ const SignUp = () => {
             </View>
             <View style={styles.inputContainer}>
               <View style={styles.infoRow}>
-                <Text style={styles.label}>Clave del cliente:</Text>
+                <Text style={styles.label}>Contraseña del usuario:</Text>
                 <View style={styles.rowContent}>
                   <Entypo name="lock" size={24} color="#000" />
                   <TextInput

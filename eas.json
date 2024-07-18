@@ -1,0 +1,49 @@
+{
+  "cli": {
+    "version": ">= 10.2.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "API_KEY": "AIzaSyD9XUQHmvnCe03yFLnaNh7qnOLVwB1K2F8",
+        "AUTH_DOMAIN": "fir-teresa.firebaseapp.com",
+        "PROJECT_ID": "fir-teresa",
+        "STORAGE_BUCKET": "fir-teresa.appspot.com",
+        "MESSAGING_SENDER_ID": "610422449043",
+        "APP_ID": "1:610422449043:web:004cb6beba2225b4c7be66"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "env": {
+          "API_KEY": "AIzaSyD9XUQHmvnCe03yFLnaNh7qnOLVwB1K2F8",
+          "AUTH_DOMAIN": "fir-teresa.firebaseapp.com",
+          "PROJECT_ID": "fir-teresa",
+          "STORAGE_BUCKET": "fir-teresa.appspot.com",
+          "MESSAGING_SENDER_ID": "610422449043",
+          "APP_ID": "1:610422449043:web:004cb6beba2225b4c7be66"
+        }
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "apk",
+        "env": {
+          "API_KEY": "AIzaSyD9XUQHmvnCe03yFLnaNh7qnOLVwB1K2F8",
+          "AUTH_DOMAIN": "fir-teresa.firebaseapp.com",
+          "PROJECT_ID": "fir-teresa",
+          "STORAGE_BUCKET": "fir-teresa.appspot.com",
+          "MESSAGING_SENDER_ID": "610422449043",
+          "APP_ID": "1:610422449043:web:004cb6beba2225b4c7be66"
+        }
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

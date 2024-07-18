@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "perfil3-Teresa",
-    "slug": "perfil3-Teresa",
+    "slug": "perfil3-teresa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.teresalaq.perfil3teresa"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "364b3a16-6511-436e-a4fe-45ac04105947"
+      }
+    },
+    "owner": "teresalaq"
   }
 }
