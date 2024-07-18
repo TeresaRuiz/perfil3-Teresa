@@ -10,4 +10,4 @@ Este proyecto implementa autenticación utilizando Firebase en una aplicación d
 [Expo: Perfil3-Teresa](https://expo.dev/accounts/teresalaq/projects/perfil3-teresa/builds/73b4ce3d-e4f8-4561-8fc9-c740a77e5a60)
 
 ## 📄 Rubrica
-<iframe src="https://drive.google.com/file/d/1a7h3nx2e9xXJvK1GhzuKgdHRYBoa6g9z/preview" width="100%" height="600"></iframe>
+ <iframe src="https://drive.google.com/file/d/1a7h3nx2e9xXJvK1GhzuKgdHRYBoa6g9z/preview" width="100%" height="600"></iframe>
